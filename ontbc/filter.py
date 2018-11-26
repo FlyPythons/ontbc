@@ -72,7 +72,7 @@ def get_summary(summary):
     r = {}
     LOG.info("Parse ont summary from %r" % summary)
 
-    for record in read_tsv(summary, sep="\t"):
+    for record in read_tsv(summary, sep=None):
         r[record[1]] = record
 
     return r
