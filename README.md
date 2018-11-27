@@ -1,5 +1,5 @@
 # ontbc
-Tools for oxford nanopore barcoding
+Pipeline for oxford nanopore barcoding
 
 ## 1. Dependence
 python 2.5 or higher (need matplotlib)   
