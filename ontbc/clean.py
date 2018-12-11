@@ -17,7 +17,7 @@ def clean(args):
     for name, seq, qvalue in readfq(args.fastq):
 
         if qvalue:
-            print("@%s\n%s\n+%s" % (name, seq, qvalue))
+            print("@%s\n%s\n+\n%s" % (name, seq, qvalue))
 
 
 def main():
