@@ -4,7 +4,7 @@
 """
 library for common functions
 """
-
+import gzip
 import os.path
 import logging
 
@@ -50,7 +50,7 @@ def readfq(file):  # this is a generator function
                     last = l[:-1] # save this line
                     break
         if not last: break
-        name, seqs, last = last[1:].partition(" ")[0], [], None
+        name, seqs, last = last[1:], [], None
         for l in fp: # read the sequence
             if l[0] in '@+':
                 last = l[:-1]
@@ -71,7 +71,6 @@ def readfq(file):  # this is a generator function
             if last: # reach EOF before reading enough quality
                 yield name, seq, None # yield a fasta record instead
                 break
-
 
 
 def n50(lengths):

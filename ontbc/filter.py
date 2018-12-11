@@ -236,6 +236,7 @@ Filtered Reads\t{5:,}\t{6:,}\t{7:,}\t{8:,}\t{9:,}
         out_summary.write("\t".join(summary_dict["read_id"]) + "\n")
 
         for name, seq, qual in readfq(args.fastq):
+
             if name in filter_length_dict:
                 out_fastq.write("@%s\n%s\n+\n%s\n" % (name, seq, qual))
                 out_summary.write("\t".join(summary_dict[name])+"\n")
