@@ -85,7 +85,9 @@ def create_porechop_tasks(cell, barcodes, job_type, work_dir, out_dir):
         type=job_type,
         option=_option,
         script="""
-{porechop}/porechop-runner.py -i {{fastq}} -b . -t 1 --verbosity 2 --no_split > porechop.log
+{ontbc}/ontbc.py clean {{fastq}} > clean.fastq
+{porechop}/porechop-runner.py -i clean.fastq -b . -t 1 --verbosity 2 --no_split > porechop.log
+rm -rf clean.fastq
 """.format(
             porechop=PORECHOP_BIN,
             ontbc=os.path.join(os.path.dirname(__file__), "..")

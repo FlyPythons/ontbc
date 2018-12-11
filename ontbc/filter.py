@@ -6,10 +6,6 @@ import argparse
 import logging
 import os.path
 
-import matplotlib
-matplotlib.use("Agg")
-from matplotlib import pyplot as plt
-
 from ontbc.parser import add_filter_parser
 from ontbc.common import read_tsv, n50, readfq
 from ontbc import __author__, __email__, __version__
@@ -88,10 +84,13 @@ def _filter_reads(length_dict, summary_dict, min_score, min_length, max_bases):
 
         for k, v in sorted(length_dict.items(), key=lambda d: d[1], reverse=True):
 
-            if k not in summary_dict:
+            _id = k.split()[0]
+            if _id not in summary_dict:
                 LOG.warning("read %r not in summary" % k)
+                continue
 
-            if float(summary_dict[k][score_index]) < min_score:  # filter by qscore
+            if float(summary_dict[_id][score_index]) < min_score:  # filter by qscore
+                LOG.info("read %r score < %s" % (_id, min_score))
                 continue
 
             if v < min_length:  # filter by length
@@ -194,6 +193,9 @@ def filter_reads(args):
     filter_lengths = filter_length_dict.values()
 
     if args.plot:
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
 
         _plot(lengths=raw_lengths,
               window=args.window,
@@ -238,11 +240,12 @@ Filtered Reads\t{5:,}\t{6:,}\t{7:,}\t{8:,}\t{9:,}
         for name, seq, qual in readfq(args.fastq):
 
             if name in filter_length_dict:
+                _id = name.split()[0]
                 out_fastq.write("@%s\n%s\n+\n%s\n" % (name, seq, qual))
-                out_summary.write("\t".join(summary_dict[name])+"\n")
+                out_summary.write("\t".join(summary_dict[_id])+"\n")
 
                 if args.fast5:
-                    read_out.append("%s\n" % fast5[summary_dict[name][0]])
+                    read_out.append("%s\n" % fast5[summary_dict[_id][0]])
 
         out_summary.close()
     else:
