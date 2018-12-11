@@ -40,7 +40,15 @@ def add_filter_parser(parser):
     return parser
 
 
-def add_barcode_args(parser):
+def add_clean_parser(parser):
+
+    parser.add_argument("fastq", metavar="FASTQ",
+                        help=".fastq")
+
+    return parser
+
+
+def add_barcode_parser(parser):
 
     parser.add_argument("cell", metavar="DIR",
                         help="Directory of the cell")

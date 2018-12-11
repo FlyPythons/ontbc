@@ -9,7 +9,7 @@ from tarfile import TarFile
 
 from thirdparty.dagflow import ParallelTask, Task, DAG, do_dag
 from ontbc.common import check_paths, mkdir, touch, read_tsv
-from ontbc.parser import add_barcode_args
+from ontbc.parser import add_barcode_parser
 from ontbc.config import PORECHOP_BIN, QUEUE
 from ontbc import __file__, __version__, __email__, __author__
 
@@ -193,7 +193,7 @@ version: %s
 contact:  %s <%s>\
     """ % (__version__, " ".join(__author__), __email__))
 
-    parser = add_barcode_args(parser)
+    parser = add_barcode_parser(parser)
     args = parser.parse_args()
     barcode(args)
 

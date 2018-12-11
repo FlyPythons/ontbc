@@ -5,8 +5,9 @@ import sys
 import argparse
 import logging
 
+from ontbc.clean import add_clean_parser, clean
 from ontbc.filter import add_filter_parser, filter_reads
-from ontbc.barcode import add_barcode_args, barcode
+from ontbc.barcode import add_barcode_parser, barcode
 
 from ontbc import __author__, __version__, __email__
 
@@ -20,12 +21,16 @@ def add_ontbc_parser(parser):
         dest='commands')
     subparsers.required = True
 
+    clean_parser = subparsers.add_parser('clean', help="clean records")
+    filter_parser = add_clean_parser(clean_parser)
+    filter_parser.set_defaults(func=clean)
+
     filter_parser = subparsers.add_parser('filter', help="filter records")
     filter_parser = add_filter_parser(filter_parser)
     filter_parser.set_defaults(func=filter_reads)
 
     barcode_parser = subparsers.add_parser('barcode', help="barcoding")
-    barcode_parser = add_barcode_args(barcode_parser)
+    barcode_parser = add_barcode_parser(barcode_parser)
     barcode_parser.set_defaults(func=barcode)
 
     return parser
