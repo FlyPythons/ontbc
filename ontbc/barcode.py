@@ -8,7 +8,7 @@ import logging
 from tarfile import TarFile
 
 from thirdparty.dagflow import ParallelTask, Task, DAG, do_dag
-from ontbc.common import check_paths, mkdir, touch, read_tsv
+from ontbc.common import mkdir, touch, read_tsv
 from ontbc.parser import add_barcode_parser
 from ontbc.config import PORECHOP_BIN, QUEUE
 from ontbc import __file__, __version__, __email__, __author__

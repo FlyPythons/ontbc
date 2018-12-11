@@ -36,7 +36,7 @@ version: %s
 contact:  %s <%s>\
     """ % (__version__, " ".join(__author__), __email__))
 
-    parser = add_clean_args(parser)
+    parser = add_clean_parser(parser)
     args = parser.parse_args()
     clean(args.fastq)
 
