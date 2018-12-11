@@ -12,9 +12,9 @@ from ontbc import __author__, __email__, __version__
 LOG = logging.getLogger(__name__)
 
 
-def clean(fastq):
+def clean(args):
 
-    for name, seq, qvalue in readfq(fastq):
+    for name, seq, qvalue in readfq(args.fastq):
 
         if qvalue:
             print("@%s\n%s\n+%s" % (name, seq, qvalue))
@@ -38,7 +38,7 @@ contact:  %s <%s>\
 
     parser = add_clean_parser(parser)
     args = parser.parse_args()
-    clean(args.fastq)
+    clean(args)
 
 
 if __name__ == "__main__":
