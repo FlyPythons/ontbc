@@ -13,14 +13,19 @@ chmod 755 ontbc.py && dos2unix ontbc.py
 ```
 
 ## 3. Usage
-### 3.1 filter raw reads
+### 3.1 clean raw reads
+raw ont fastq made by oxford nanopore ctd. has many errors, so we should clean the fastq before downstream analysis
+```commandline
+ontbc.py clean input.fastq > clean.fastq
+```
+### 3.2 filter raw reads
 use to filter ont reads with read_length and read_quality_score
 ```commandline
 ontbc.py filter --fastq 1.fastq --summary 1.summary.txt \
 --min_score 7 --min_length 1000 
 ```
 
-### 3.2 barcoding 
+### 3.3 barcoding 
 use to ont reads barcoding
 ```commandline
 ontbc.py barcode /path/to/cell/ --barcode BC01 BC02 BC03
