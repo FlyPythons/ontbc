@@ -6,6 +6,10 @@ import argparse
 import logging
 import os.path
 
+import matplotlib
+matplotlib.use("Agg")
+from matplotlib import pyplot as plt
+
 from ontbc.parser import add_filter_parser
 from ontbc.common import read_tsv, n50, readfq
 from ontbc import __author__, __email__, __version__
@@ -193,9 +197,6 @@ def filter_reads(args):
     filter_lengths = filter_length_dict.values()
 
     if args.plot:
-        import matplotlib
-        matplotlib.use("Agg")
-        from matplotlib import pyplot as plt
 
         _plot(lengths=raw_lengths,
               window=args.window,
