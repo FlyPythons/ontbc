@@ -80,7 +80,12 @@ def _filter_reads(length_dict, summary_dict, min_score, min_length, max_bases):
         LOG.info("Filter sequences with score >= %s, total bases >= %s" % (min_score, max_bases))
 
     if summary_dict:
-        score_index = summary_dict["read_id"].index("mean_qscore_template")
+        if "read_id" in summary_dict:
+            score_index = summary_dict["read_id"].index("mean_qscore_template")
+        elif "filename_fastq" in summary_dict:
+            score_index = summary_dict["filename_fastq"].index("mean_qscore_template")
+        else:
+            LOG.exception("Unknown summary header, expect 'read id' or 'filename_fastq'")
 
         for k, v in sorted(length_dict.items(), key=lambda d: d[1], reverse=True):
 
