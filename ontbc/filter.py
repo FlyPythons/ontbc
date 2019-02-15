@@ -6,10 +6,6 @@ import argparse
 import logging
 import os.path
 
-import matplotlib
-matplotlib.use("Agg")
-from matplotlib import pyplot as plt
-
 from ontbc.parser import add_filter_parser
 from ontbc.common import read_tsv, n50, readfq
 from ontbc import __author__, __email__, __version__
@@ -150,7 +146,7 @@ def plot_reads_number(lengths, window, x_max, x_min=0, mode="num"):
     return [i + window / 2 for i in x], y
 
 
-def _plot(lengths, window, x_max, mode, out):
+def _plot(plt, lengths, window, x_max, mode, out):
 
     LOG.info("Plot reads distribution to %r" % out)
     x, y = plot_reads_number(lengths, window, x_max, x_min=0, mode=mode)
@@ -197,14 +193,17 @@ def filter_reads(args):
     filter_lengths = filter_length_dict.values()
 
     if args.plot:
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
 
-        _plot(lengths=raw_lengths,
+        _plot(plt, lengths=raw_lengths,
               window=args.window,
               x_max=args.xmax,
               mode=args.mode,
               out=args.out+".raw_reads")
 
-        _plot(lengths=filter_lengths,
+        _plot(plt, lengths=filter_lengths,
               window=args.window,
               x_max=args.xmax,
               mode=args.mode,
