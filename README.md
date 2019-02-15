@@ -2,7 +2,7 @@
 Pipeline for oxford nanopore barcoding
 
 ## 1. Dependence
-python 2.5 or higher
+python 2.5 or higher  
 [porechop](https://github.com/rrwick/Porechop) (optional, barcode required)  
 SGE (optional)
 ## 2. Install
