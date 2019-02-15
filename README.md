@@ -2,14 +2,14 @@
 Pipeline for oxford nanopore barcoding
 
 ## 1. Dependence
-python 2.5 or higher (need matplotlib)   
-[porechop](https://github.com/rrwick/Porechop) (required if you use barcode)  
+python 2.5 or higher
+[porechop](https://github.com/rrwick/Porechop) (optional, barcode required)  
 SGE (optional)
 ## 2. Install
 ```commandline
 git clone https://github.com/FlyPythons/ontbc.git
 cd ontbc
-chmod 755 ontbc.py && dos2unix ontbc.py
+chmod 755 ontbc.py
 ```
 
 ## 3. Usage
