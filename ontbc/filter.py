@@ -115,7 +115,7 @@ def _filter_reads(length_dict, summary_dict, min_score, min_length, max_bases):
 
     return r
 
-
+"""
 def plot_reads_number(lengths, window, x_max, x_min=0, mode="num"):
 
     num = int((x_max - x_min) / window) + 1
@@ -166,6 +166,7 @@ def _plot(plt, lengths, window, x_max, mode, out):
     plt.xticks()
 
     plt.savefig("%s.png" % out, dpi=600)
+"""
 
 
 def filter_reads(args):
@@ -192,6 +193,7 @@ def filter_reads(args):
     raw_lengths = raw_length_dict.values()
     filter_lengths = filter_length_dict.values()
 
+    """
     if args.plot:
         import matplotlib
         matplotlib.use("Agg")
@@ -208,6 +210,7 @@ def filter_reads(args):
               x_max=args.xmax,
               mode=args.mode,
               out=args.out + ".filter_reads")
+    """
 
     LOG.info("Output results")
 

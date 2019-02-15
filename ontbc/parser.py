@@ -25,8 +25,8 @@ def add_filter_parser(parser):
                               help="Maximum number of total bases.")
 
     plot_group = parser.add_argument_group(title="Plot arguments")
-    plot_group.add_argument("--plot", action="store_true",
-                            help="Plot reads distribution")
+    # plot_group.add_argument("--plot", action="store_true",
+    #                        help="Plot reads distribution")
     plot_group.add_argument("--window", metavar="INT", type=int,
                             default=1000, help="Window to stat (default: 1000).")
     plot_group.add_argument("--xmax", metavar="INT", type=int,
