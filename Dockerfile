@@ -5,7 +5,6 @@ COPY . /usr/src/ontbc
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
 ENV LANG C.UTF-8
 
-ARG ONTBC_VERSION=1.1
 RUN set -ex \
         && cd /usr/src/ontbc \
         && chmod 755 ontbc.py
