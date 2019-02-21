@@ -23,8 +23,20 @@ def get_summary(summary):
     r = {}
     LOG.info("Parse ont summary from %r" % summary)
 
-    for record in read_tsv(summary, sep=None):
-        r[record[1]] = record
+    summary_iter = read_tsv(summary, sep=None)
+    if sys.version == 3:
+        head = next(summary_iter)
+    else:
+        head = summary_iter.next()
+
+    if "read_id" in head:
+        read_index = head.index("read_id")
+        r["read_id"] = head
+    else:
+        raise Exception("header of summary has no read_id")
+
+    for record in summary_iter:
+        r[read_index] = record
 
     return r
 
@@ -80,12 +92,7 @@ def _filter_reads(length_dict, summary_dict, min_score, min_length, max_bases):
         LOG.info("Filter sequences with score >= %s, total bases >= %s" % (min_score, max_bases))
 
     if summary_dict:
-        if "read_id" in summary_dict:
-            score_index = summary_dict["read_id"].index("mean_qscore_template")
-        elif "filename_fastq" in summary_dict:
-            score_index = summary_dict["filename_fastq"].index("mean_qscore_template")
-        else:
-            LOG.exception("Unknown summary header, expect 'read id' or 'filename_fastq'")
+        score_index = summary_dict["read_id"].index("mean_qscore_template")
 
         for k, v in sorted(length_dict.items(), key=lambda d: d[1], reverse=True):
 
@@ -218,6 +225,9 @@ def filter_reads(args):
     """
 
     LOG.info("Output results")
+
+    if len(filter_lengths) == 0:
+        filter_lengths = [0]
 
     out_stat = open("%s.reads_stat.tsv" % args.out, "w")
     out_stat.write("""\
