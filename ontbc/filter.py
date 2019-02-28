@@ -36,7 +36,7 @@ def get_summary(summary):
         raise Exception("header of summary has no read_id")
 
     for record in summary_iter:
-        r[read_index] = record
+        r[record[read_index]] = record
 
     return r
 
