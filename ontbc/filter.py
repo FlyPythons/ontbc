@@ -24,7 +24,7 @@ def get_summary(summary):
     LOG.info("Parse ont summary from %r" % summary)
 
     summary_iter = read_tsv(summary, sep=None)
-    if sys.version == 3:
+    if sys.version[0] == "3":
         head = next(summary_iter)
     else:
         head = summary_iter.next()
@@ -36,7 +36,8 @@ def get_summary(summary):
         raise Exception("header of summary has no read_id")
 
     for record in summary_iter:
-        r[record[read_index]] = record
+        if record[read_index] != "read_id":
+            r[record[read_index]] = record
 
     return r
 
